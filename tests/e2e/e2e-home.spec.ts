@@ -5,7 +5,7 @@ import { HomePage } from '../../page-objects/HomePage'
 
 const username = "admin01"
 const password = "okr123456789!"
-//Home Page will be removed/hidden for phase 1 okr release
+//Home Page will be removed/hidden for phase 1 okr release.
 test.describe.parallel('Home Page OKR Tests',() =>{
     let loginPage: LoginPage
     let homePage: HomePage
