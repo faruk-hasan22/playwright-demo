@@ -17,13 +17,14 @@ test.describe.parallel('Home Page OKR Tests',() =>{
         loginPage.visit()
     })
 
+    // Home Test are not relevant until the Home Page is returned back to the UI
 
-    test('Home Page displays correct URL when selected', async ({page}) =>{
+    test.skip('Home Page displays correct URL when selected', async ({page}) =>{
         await loginPage.login(username,password)
         await homePage.HomePageURL()
     })
 
-    test('chevron expands and collapses the side nav', async ({page}) =>{
+    test.skip('chevron expands and collapses the side nav', async ({page}) =>{
         await loginPage.login(username,password)
         await homePage.HomePageURL()
         await page.getByLabel('chevron-left icon}').click()
@@ -32,7 +33,7 @@ test.describe.parallel('Home Page OKR Tests',() =>{
         await expect(page.getByLabel('chevron-right icon}')).toBeHidden()
     })
 
-    test('forgot password screen promps error if left blank', async ({page}) =>{
+    test.skip('forgot password screen promps error if left blank', async ({page}) =>{
         await loginPage//.login(username,password)
         //await homePage.HomePageURL()
         await page.getByText('Forgot Password?').click()
