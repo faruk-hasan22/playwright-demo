@@ -12,24 +12,31 @@ test.describe.parallel('Sessions Page Tests',() =>{
     let loginPage: LoginPage
     let sessionsPage: SessionsPage
 
-    // Before Hook - checks to ensure page objects exist and also tells the app where to start
+
     test.beforeEach(async ({page}) =>{
-
-
         loginPage = new LoginPage(page)
         sessionsPage = new SessionsPage(page)
-
         loginPage.visit()
     })
 
 
-// Sessions Page displays the correct URL
-    test('Sessions Page URL test', async ({page}) =>{
-
+    test('Sessions Page URL is Correct', async ({page}) =>{
         await loginPage.login(username,password)
         await sessionsPage.SessionsPageURL()
+    })
 
+    //needs work
+    test.skip('OKR Sessions Page Title is Correct', async ({page}) =>{
+        await loginPage.login(username,password)
+        await sessionsPage.SessionsPageURL()
+        await sessionsPage.SessionsTitle()
+    })
 
-
+    test('Searching for a Session with the search bar', async ({page}) =>{
+        await loginPage.login(username,password)
+        await sessionsPage.SessionsPageURL()
+        await expect(page.getByPlaceholder('Type to search')).toBeVisible()
+        await page.getByTestId('SearchInput-search-text').fill('tristan')
+        await expect(page.getByText('Tristan Demo to QE Team')).toBeVisible()
     })
 })

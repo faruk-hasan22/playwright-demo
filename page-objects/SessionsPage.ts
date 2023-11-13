@@ -3,7 +3,7 @@ import {
 } from '@playwright/test'
 
 const SessionPageURL = "https://okr-test-1.okr.staging.digital.ai/sessions"
-const sessionPageTitle = "This is the Sessions Management Page."
+const sessionPageTitle = "Sessions"
 
 export class SessionsPage{
 
@@ -18,22 +18,18 @@ readonly page: Page
 constructor(page: Page){
     this.page = page
     this.sessionPageLink = page.getByText('Sessions').first()
-    this.sessionPageTitle = page.getByText('This is the Sessions Management Page.')
+    this.sessionPageTitle = page.getByText('Sessions')
 }
 
 //async
     async SessionsPageURL(){
-
         await this.sessionPageLink.click()
         await expect(this.page).toHaveURL(SessionPageURL)
     }
 
     async SessionsTitle(){
-
         await this.sessionPageLink.click()
         await expect(this.sessionPageTitle).toHaveText(sessionPageTitle)
     }
-
-
 
 }
