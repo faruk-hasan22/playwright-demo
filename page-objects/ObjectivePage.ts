@@ -9,7 +9,6 @@ const logoutURL = "https://okr-test-1.okr.staging.digital.ai/"
 
 export class ObjectivePage{
 
-
     // Define Selectors
     readonly page: Page
         readonly objectivePageLink: Locator
@@ -30,23 +29,21 @@ export class ObjectivePage{
         readonly cancel: Locator
         readonly sessionDropdown : Locator
 
-        //11/6
+        //11/6 need to go through and cleanup any duplicates from above
         readonly getTitleField: Locator
         readonly inputTitledata: Locator
         readonly getDescrField: Locator
         readonly inputDescrdata: Locator
-
         readonly chooseSession: Locator
         readonly sessionSelect: Locator
-
         readonly clickAway: Locator
-
         readonly newOKRSave: Locator
 
 
 
 
     // Init selectors using constructor
+    //review to remove any duplicates
 
     constructor(page: Page){
         this.page = page
@@ -67,7 +64,6 @@ export class ObjectivePage{
         this.okrMainSaveButton = page.getByTestId('undefined-main-save')
         this.cancel = page.getByTestId('session-cancel')
         this.sessionDropdown= page.getByTestId('session-selector-autocomplete-input')
-
         //Signout
         this.signOutButtonLeft = page.getByText("SIgn Out")
         this.signOutButtonTop = page.getByText("SIgn Out").first()
@@ -90,31 +86,21 @@ export class ObjectivePage{
 
 
     async navigateObjectivesPageURL(){
-
         await this.objectivePageLink.click()
         await expect(this.page).toHaveURL("https://okr-test-1.okr.staging.digital.ai/objectives")
-
     }
 
     async objectivesPageTitleTest(){
-
         await this.objectivePageLink.click()
         await expect(this.objectivePageTitle).toHaveText(pageTitle)
-
-
     }
 
     async objectivesPageOKRButtonTest(){
-
         await this.objectivePageLink.click()
         await expect(this.okrButton).toHaveText(okrButtonText)
-
-
-
     }
 
     async signOutTestTop(){
-
         await this.objectivePageLink.click()
         await this.userIcon.click()
         await this.signOutButtonTop.click()
@@ -123,9 +109,7 @@ export class ObjectivePage{
     }
 
     async signOutTestLeft(){
-
         await this.objectivePageLink.click()
-
         await this.signOutButtonLeft.click()
         await this.confirmSignOut.click()
         await expect(this.page).toHaveURL(logoutURL);
@@ -134,22 +118,17 @@ export class ObjectivePage{
     async filterExist(){
         await this.objectivePageLink.click()
         await this.filter.isVisible()
-
     }
 
     async newOKRrTitleExist(text:string){
-
         await this.objectivePageLink.click()
         await this.okrButton.click()
         await this.title.isEnabled()
         await expect(this.title).toHaveText(text)
-
         //await this.okrMainSaveButton.click()
-
     }
 
     async newOKRrCreationTest(){
-
         await this.objectivePageLink.click()
         await this.okrButton.click()
         await this.title.click()
@@ -158,13 +137,8 @@ export class ObjectivePage{
         await this.description.click()
         await this.descriptionField.fill("This is a test")
         await this.descriptionSaveButton.click()
-
-
-
-
     }
     async sessionSelector(){
-
         await this.sessionDropdown.click()
         // for (let TRISTAN = 0; TRISTAN <= 5; TRISTAN++) {
         //     await this.sessionDropdown.press("ArrowDown")
@@ -181,12 +155,12 @@ export class ObjectivePage{
     }
 
     async TitleInput(){
-        await this.inputTitledata.fill("Tristan's Playwright OKR")
+        await this.inputTitledata.fill("Playwright OKR Demo Title")
     }
 
     async DescriptionInput(){
         await this.getDescrField.click()
-        await this.inputDescrdata.fill("Tristan's Playwright OKR Description")
+        await this.inputDescrdata.fill("Playwright OKR Demo Description")
     }
 
     async NewOKRClickAway(){

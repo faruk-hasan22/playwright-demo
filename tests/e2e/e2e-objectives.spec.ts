@@ -12,67 +12,54 @@ test.describe.parallel('Objectives Page Tests',() =>{
     let loginPage: LoginPage
     let objectivePage: ObjectivePage
 
-    // Before Hook
 
     test.beforeEach(async ({page}) =>{
-
         loginPage = new LoginPage(page)
-
         objectivePage = new ObjectivePage(page)
-
         loginPage.visit()
-
     })
 
 // Test #100
 // users should see the correct url on the Objectives page
     test('Objectives Page URL test', async ({page}) =>{
-
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
-        
-
-
     })
+
     // Test #101
     // The title of the Objectives page should be displayed and spelled correctly
-
     test('Objectives Page title test', async ({page}) =>{
-
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
         await objectivePage.objectivesPageTitleTest()
-        
-
     })
-
     // Test #102
     // The OKR Button should be presen and display the button text correctly
-
     test('Objectives Page OKR button test', async ({page}) =>{
-
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
         await objectivePage.objectivesPageOKRButtonTest()
-        
+    })
+
+    test("New OKR Title Test",async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+        await objectivePage.newOKRrTitleExist("New OKR")
     })
 
     test('Objectives Page Filter is displayed', async ({page}) =>{
-
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
         await objectivePage.filterExist()
-        
-        
-    })
+   })
 
     test("New OKR Title and Description",async ({page}) =>{
-
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
         await objectivePage.newOKRrCreationTest()
         await objectivePage.sessionSelector();
         await page.waitForTimeout(2000);
+
         /*
  await page.getByTestId('newOkrButton').click();
   await page.getByTestId('session-date-range-begin-input').getByTestId('dot-date-picker-input').click();
@@ -83,24 +70,96 @@ test.describe.parallel('Objectives Page Tests',() =>{
   await page.getByRole('gridcell', { name: '31' }).click();
   await page.getByTestId('session-selector-autocomplete-input').click();
   await page.getByTestId('session-selector-autocomplete-input').press('ArrowDown');
-  await page.getByTestId('session-selector-autocomplete-input').press('Enter');
-        */
-
-
+  await page.getByTestId('session-selector-autocomplete-input').press('Enter');   */
     })
 
-    test("New OKR Title Test",async ({page}) =>{
-
+    test('OKR Search bar is visible on the page', async ({page}) =>{
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
-        await objectivePage.newOKRrTitleExist("New OKR")
-        
-
-
+        //allows the full page to render "Rows per Page"
+        await page.waitForSelector('[id=":r9:"]')
+        //await page.getByPlaceholder('Type to search')
+        await expect(page.getByPlaceholder('Type to search')).toBeVisible()
     })
 
-   
+    //need to address the .type in session
+    test.skip('creating a new OKR via the new OKR button', async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+        await page.waitForSelector('[id=":r9:"]')
+        await page.getByTestId('newOkrButton').click();
+        // //wait for element to become available
+        await page.waitForSelector('[data-testid="session-cancel"]')
+        //Adding a title (THIS WORKS)
+        await objectivePage.TitleInput()
+        //Adding a Description (THIS WORKS)
+        await objectivePage.DescriptionInput()
+        //session
+        await page.getByTestId('session-selector-autocomplete').click
+        await page.getByTestId('session-selector-autocomplete-input').type('Q4.2024')
+        await page.getByTestId('detail-dialog').click()
+        //Saving
+        await page.getByTestId('undefined-main-save').click()
+        await expect(page.getByTestId('undefined-main-save')).toBeHidden()
+        await expect(page.getByTestId('undefined-main-cancel')).toBeHidden()
+    })
 
+    test('creating a OKR with Page Object Model', async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+        await page.waitForSelector('[id=":r9:"]')
+        await page.getByTestId('newOkrButton').click();
+        // //wait for element to become available
+        await page.waitForSelector('[data-testid="session-cancel"]')
+        //Title
+        await objectivePage.TitleInput()
+        //Description
+        await objectivePage.DescriptionInput()
+        //session
+        await objectivePage.SessionSelect()
+        await objectivePage.NewOKRClickAway()
+        //Saving
+        await objectivePage.NewOKRSave()
+        //await expect(objectivePage.NewOKRSave)).toBeHidden()
+        await expect(page.getByTestId('undefined-main-cancel')).toBeHidden()
+    })
+
+    test('closing the new OKR window clicking cancel', async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+         //waiting on full page to load
+        await page.waitForSelector('[id=":r9:"]')
+        await page.getByTestId('newOkrButton').click();
+        await page.waitForSelector('[data-testid="undefined-main-cancel"]')
+        await expect(page.getByText('Cancel')).toBeVisible()
+        await page.getByText('Cancel').click()
+        await expect(page.getByText('Cancel')).toBeHidden()
+    })
+
+    test('closing the new OKR window clicking the X', async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+        await page.waitForSelector('[id=":r9:"]')
+        await page.getByTestId('newOkrButton').click();
+        await page.waitForSelector('[data-testid="undefined-main-cancel"]')
+        await expect(page.getByText('Cancel')).toBeVisible()
+        await page.getByTestId('button-icon-i').click()
+        await expect(page.getByText('Cancel')).toBeHidden()
+    })
+
+    test('Opening the filter menu and close it clicking X', async ({page}) =>{
+        await loginPage.login(username,password)
+        await objectivePage.navigateObjectivesPageURL()
+        await page.waitForSelector('[id=":r9:"]')
+        await page.getByLabel('filter icon}').click();
+       // await page.waitForSelector('[data-testid="undefined-main-cancel"]')
+        await expect(page.getByTestId('filter-side-panel-owners-input')).toBeVisible()
+        await page.getByLabel('close icon}').click()
+        await expect(page.getByTestId('filter-side-panel-owners-input')).toBeHidden()
+    })
+
+
+//DISCUSS WITH FARUK IF NEEDED
     /*
     import { test, expect } from '@playwright/test';
 
