@@ -5,7 +5,7 @@ import { LoginPage } from '../../page-objects/LoginPage'
 import { ObjectivePage } from '../../page-objects/ObjectivePage'
 
 const username = "user01"
-const password = "okr123456789!"
+const password = "okr123456789!!"
 
 test.describe.parallel('Objectives Page Tests',() =>{
 
@@ -83,20 +83,20 @@ test.describe.parallel('Objectives Page Tests',() =>{
     })
 
     //need to address the .type in session
-    test.skip('creating a new OKR via the new OKR button', async ({page}) =>{
+    test('creating a new OKR via the new OKR button', async ({page}) =>{
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
-        await page.waitForSelector('[id=":r9:"]')
+        //await page.waitForSelector('[id=":r9:"]')
         await page.getByTestId('newOkrButton').click();
         // //wait for element to become available
-        await page.waitForSelector('[data-testid="session-cancel"]')
+        //await page.waitForSelector('[data-testid="session-cancel"]')
         //Adding a title (THIS WORKS)
         await objectivePage.TitleInput()
         //Adding a Description (THIS WORKS)
         await objectivePage.DescriptionInput()
         //session
         await page.getByTestId('session-selector-autocomplete').click
-        await page.getByTestId('session-selector-autocomplete-input').type('Q4.2024')
+        await page.getByTestId('session-selector-autocomplete-input').fill('Q4.2024')
         await page.getByTestId('detail-dialog').click()
         //Saving
         await page.getByTestId('undefined-main-save').click()
@@ -107,10 +107,10 @@ test.describe.parallel('Objectives Page Tests',() =>{
     test('creating a OKR with Page Object Model', async ({page}) =>{
         await loginPage.login(username,password)
         await objectivePage.navigateObjectivesPageURL()
-        await page.waitForSelector('[id=":r9:"]')
+        //await page.waitForSelector('[id=":r9:"]')
         await page.getByTestId('newOkrButton').click();
         // //wait for element to become available
-        await page.waitForSelector('[data-testid="session-cancel"]')
+        //await page.waitForSelector('[data-testid="session-cancel"]')
         //Title
         await objectivePage.TitleInput()
         //Description
@@ -120,8 +120,10 @@ test.describe.parallel('Objectives Page Tests',() =>{
         await objectivePage.NewOKRClickAway()
         //Saving
         await objectivePage.NewOKRSave()
-        //await expect(objectivePage.NewOKRSave)).toBeHidden()
+        await page.getByText('Save').dblclick()
+        await page.waitForTimeout(3000);
         await expect(page.getByTestId('undefined-main-cancel')).toBeHidden()
+
     })
 
     test('closing the new OKR window clicking cancel', async ({page}) =>{
