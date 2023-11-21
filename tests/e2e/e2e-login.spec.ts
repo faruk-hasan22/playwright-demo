@@ -5,7 +5,7 @@ import { LoginPage } from '../../page-objects/LoginPage'
 import { ObjectivePage } from '../../page-objects/ObjectivePage'
 
 const username = "user01"
-const password = "okr123456789!!"
+const password = "okr123456789!"
 
 test.describe.parallel('Login / Logout Flow',() =>{
 

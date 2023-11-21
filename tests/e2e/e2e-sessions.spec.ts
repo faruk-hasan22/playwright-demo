@@ -5,7 +5,7 @@ import { SessionsPage } from '../../page-objects/SessionsPage'
 
 
 const username = "admin01"
-const password = "okr123456789!!"
+const password = "okr123456789!"
 
 test.describe.parallel('Sessions Page Tests',() =>{
 
