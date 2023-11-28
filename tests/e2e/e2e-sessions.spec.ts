@@ -39,4 +39,19 @@ test.describe.parallel('Sessions Page Tests',() =>{
         await page.getByTestId('SearchInput-search-text').fill('tristan')
         await expect(page.getByText('Tristan Demo to QE Team')).toBeVisible()
     })
+
+    test('Add session button exist and opens the add session window', async ({page}) =>{
+        await loginPage.login(username,password)
+        await sessionsPage.SessionsPageURL()
+        await sessionsPage.SessionAdd()
+        await expect(page.getByTestId('session-form-cancel')).toBeVisible();
+    })
+
+    test('Rows per page changes to desired number', async ({page}) =>{
+        await loginPage.login(username,password)
+        await sessionsPage.SessionsPageURL()
+        await page.getByLabel('25').click();
+        await page.getByRole('option', { name: '50', exact: true }).click();
+        await expect(page.getByLabel('50')).toBeVisible()
+    })
 })

@@ -12,6 +12,7 @@ export class SessionsPage{
 readonly page: Page
     readonly sessionPageLink: Locator
     readonly sessionPageTitle: Locator
+    readonly sessionAddbutton: Locator
 
 
 //Constructors
@@ -19,6 +20,7 @@ constructor(page: Page){
     this.page = page
     this.sessionPageLink = page.getByText('Sessions').first()
     this.sessionPageTitle = page.getByText('Sessions')
+    this.sessionAddbutton = page.getByTestId('addSessionButton')
 }
 
 //async
@@ -31,5 +33,8 @@ constructor(page: Page){
         await this.sessionPageLink.click()
         await expect(this.sessionPageTitle).toHaveText(sessionPageTitle)
     }
-
+    async SessionAdd(){
+        await this.sessionPageLink.click()
+        await this.sessionAddbutton.click()
+    }
 }
