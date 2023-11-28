@@ -3,7 +3,7 @@ import {ObjectivePage} from "../../page-objects/ObjectivePage"
 import { LoginPage } from "../../page-objects/LoginPage";
 
 const username = "admin01"
-const password = "okr123456789!"
+const password = "okr1234567890!"
 
 test.describe.parallel('Key Results Test',() =>{
 

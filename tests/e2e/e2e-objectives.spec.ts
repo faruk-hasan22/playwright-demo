@@ -4,8 +4,8 @@ import { LoginPage } from '../../page-objects/LoginPage'
 
 import { ObjectivePage } from '../../page-objects/ObjectivePage'
 
-const username = "user01"
-const password = "okr123456789!"
+const username = "admin01"
+const password = "okr1234567890!"
 
 test.describe.parallel('Objectives Page Tests',() =>{
 
