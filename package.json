@@ -8,6 +8,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.37.0"
+    "@playwright/test": "^1.47.1",
+    "@types/node": "^22.5.5"
+  },
+  "dependencies": {
+    "@zerostep/playwright": "^0.1.5"
   }
 }
