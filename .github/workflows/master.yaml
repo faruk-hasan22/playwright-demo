@@ -28,4 +28,4 @@ jobs:
         run: npx playwright install
 
       - name: Run Playwright tests
-        run: npm test  # Adjust this command if your test command is different
+        run: npx playwright test  # Adjust this command if your test command is different
