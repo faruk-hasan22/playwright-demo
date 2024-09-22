@@ -21,5 +21,5 @@ test('google url load demo', async ({ page }) => {
   await page.goto('https://www.google.com/');
 
   // Expects page to have a heading with the name of Installation.
-  await expect(page.getByLabel('Google Search')).toBeVisible();
+  await expect(page.getByText('Gmail')).toBeVisible();
 });
