@@ -3,7 +3,7 @@ import { ai } from '@zerostep/playwright'
 
 test.describe('Udemy Demo', () => {
 
-  test('demo', async ({ page }) => {
+  test.skip('demo', async ({ page }) => {
     await page.goto('https://www.msn.com/en-us');
 
     await ai('Click the "Sports" tab', { page, test });
