@@ -23,3 +23,11 @@ test('google url load demo', async ({ page }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByText('Gmail')).toBeVisible();
 });
+
+test('youtube load demo', async ({ page }) => {
+  await page.goto('https://www.google.com/');
+  //await page.waitForTimeout(20);
+
+  // Expects page to have a heading with the name of Installation.
+  await expect(page.getByText('Images')).toBeVisible();
+});
