@@ -24,6 +24,14 @@ test('google url load demo', async ({ page }) => {
   await expect(page.getByText('Gmail')).toBeVisible();
 });
 
+test('youtube load demo', async ({ page }) => {
+  await page.goto('https://www.google.com/');
+  //await page.waitForTimeout(20);
+
+  // Expects page to have a heading with the name of Installation.
+  await expect(page.getByText('Images')).toBeVisible();
+});
+
 test('Google gmail text display', async ({ page }) => {
 
   await page.goto('https://www.google.com/');
@@ -31,3 +39,4 @@ test('Google gmail text display', async ({ page }) => {
   // Expect that the page contains a visible element with text 'Gmail'
   await expect(page.locator('text=Gmail')).toBeVisible();
 });
+
