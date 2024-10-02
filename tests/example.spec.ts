@@ -24,7 +24,7 @@ test('google url load demo', async ({ page }) => {
   await expect(page.getByText('Gmail')).toBeVisible();
 });
 
-test('youtube load demo', async ({ page }) => {
+test('Google IMage text displays', async ({ page }) => {
   await page.goto('https://www.google.com/');
   //await page.waitForTimeout(20);
 
@@ -36,7 +36,6 @@ test('Google gmail text display', async ({ page }) => {
 
   await page.goto('https://www.google.com/');
 
-  // Expect that the page contains a visible element with text 'Gmail'
   await expect(page.locator('text=Gmail')).toBeVisible();
 });
 
